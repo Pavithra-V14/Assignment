@@ -1,0 +1,39 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# --- Env / secrets ---
+.env
+service-account.json
+*.serviceaccount.json
+
+# --- Runtime output / cache (not source) ---
+# Exception: weekly JSON history is intentionally committed by the CI
+# workflow (see .github/workflows/weekly_report.yml) — Phase 3 aggregation
+# reads it across runs to compute trend. Everything else here is ephemeral.
+var/outputs/*
+!var/outputs/weekly/
+var/outputs/weekly/*
+!var/outputs/weekly/**/*.json
+var/outputs/monthly/
+var/cache/
+!var/outputs/.gitkeep
+!var/cache/.gitkeep
+
+# --- Tooling ---
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- OS / editor ---
+.DS_Store
+.idea/
+.vscode/

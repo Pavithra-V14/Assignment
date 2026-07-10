@@ -1,0 +1,50 @@
+name: Monthly Portfolio Synthesis
+
+on:
+  schedule:
+    # 07:00 UTC on the 1st of each month.
+    - cron: "0 7 1 * *"
+  workflow_dispatch: {}
+
+jobs:
+  run-monthly-synthesis:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        # Needs the weekly JSON history committed by weekly_report.yml —
+        # this job reads it via aggregator.py, it never re-reads spreadsheets.
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install package
+        run: pip install .
+
+      - name: Determine the month that just ended
+        id: month
+        run: echo "value=$(date -u -d 'yesterday' +%Y-%m)" >> "$GITHUB_OUTPUT"
+        # Runs at 07:00 UTC on the 1st, so "yesterday" is always the last
+        # day of the month being reported on — this job summarizes the
+        # month that just closed, not the new month that just started.
+
+      - name: Run monthly synthesis + deck generation
+        env:
+          ENVIRONMENT: production
+          LOG_FORMAT: json
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          DATA_SOURCE: ${{ vars.DATA_SOURCE }}
+          LOCAL_DATA_DIR: ${{ github.workspace }}/sample_data
+          WEEKLY_OUTPUT_DIR: ${{ github.workspace }}/var/outputs/weekly
+          MONTHLY_OUTPUT_DIR: ${{ github.workspace }}/var/outputs/monthly
+        run: project-health-monthly --month "${{ steps.month.outputs.value }}"
+
+      - name: Upload executive deck as a build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: executive-portfolio-review-${{ steps.month.outputs.value }}-${{ github.run_id }}
+          path: var/outputs/monthly/${{ steps.month.outputs.value }}/Executive_Portfolio_Review.pptx
+          retention-days: 180

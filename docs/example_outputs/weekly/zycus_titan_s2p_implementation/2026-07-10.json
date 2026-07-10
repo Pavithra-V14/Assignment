@@ -1,0 +1,78 @@
+{
+  "project_name": "Zycus - Titan S2P Implementation",
+  "source_path": "/home/claude/work/project-health-agent_updated/project-health-agent/sample_data/Project_B.xlsx",
+  "generated_at_utc": "2026-07-10T05:10:56.250641+00:00",
+  "final_rag_status": "Red",
+  "composite_score": 40.0,
+  "raw_band_before_overrides": "Red",
+  "overrides_triggered": [
+    "Blocker open >= 21 days -> forced RED",
+    "Zero-float critical task slipping -> forced RED"
+  ],
+  "source_file_rag_label": "Green",
+  "source_vs_computed_disagreement": {
+    "source_value": "Green",
+    "computed_value": "Red",
+    "note": "Computed status disagrees with source file's existing RAG/Schedule Health by more than one band - flagged for PM review, not auto-resolved."
+  },
+  "llm_rag_opinion": "Red",
+  "model_vs_deterministic_disagreement": null,
+  "signal_breakdown": {
+    "schedule_slippage": {
+      "score": 2,
+      "detail": "Worst task-level schedule variance is -81 day(s) on a zero-float (critical) task.",
+      "worst_variance_days": -81.0,
+      "zero_float_slip": true
+    },
+    "progress_vs_plan": {
+      "score": 0,
+      "detail": "71% complete vs 57% of planned duration elapsed (-14 pt gap).",
+      "pct_complete": 0.71,
+      "pct_time_elapsed": 0.569
+    },
+    "blockers": {
+      "score": 2,
+      "detail": "5 open blocker/friction reference(s) found in comments with at least one open 14+ days.",
+      "count": 5,
+      "old_blocker_present": true,
+      "examples": [
+        "Yet to recieve Sign off",
+        "Yet to recieve Sign off",
+        "Due to parallel phase 1 activities onsite workshop dates are impacted"
+      ]
+    },
+    "stakeholder_sentiment": {
+      "score": 0,
+      "detail": "0/16 comments contain friction/escalation language.",
+      "method": "fallback_semantic"
+    },
+    "critical_path_exposure": {
+      "score": 2,
+      "detail": "14 critical-path task(s) currently slipping.",
+      "at_risk_critical_tasks": 14
+    },
+    "data_completeness": {
+      "score": 1,
+      "detail": "81% of core fields populated.",
+      "completeness": 0.811
+    }
+  },
+  "top_drivers": [
+    "Schedule Slippage: Worst task-level schedule variance is -81 day(s) on a zero-float (critical) task.",
+    "Blockers: 5 open blocker/friction reference(s) found in comments with at least one open 14+ days.",
+    "Critical Path Exposure: 14 critical-path task(s) currently slipping."
+  ],
+  "plain_english_reasoning": "This project is currently Red based on 3 key factor(s): Schedule Slippage: Worst task-level schedule variance is -81 day(s) on a zero-float (critical) task. Blockers: 5 open blocker/friction reference(s) found in comments with at least one open 14+ days. Recommend immediate escalation to the delivery lead and client-facing communication.",
+  "recommended_actions": [
+    "Escalate to delivery leadership immediately.",
+    "Convene a recovery-plan session with the client.",
+    "Re-sequence or add resources to the blocking critical-path task(s)."
+  ],
+  "stakeholder_sentiment": {
+    "score": 0,
+    "reasoning": "Derived from keyword-based fallback scan (no LLM provider configured)."
+  },
+  "data_completeness": 0.811,
+  "generated_by": "fallback_template",
+  "fallback_reason": "No LLM_PROVIDER/API key configured (see .env.example)."
+}

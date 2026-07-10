@@ -1,0 +1,72 @@
+name: Weekly Project Health Report
+
+on:
+  schedule:
+    # Every Monday at 06:00 UTC. Adjust to match your reporting cadence.
+    - cron: "0 6 * * 1"
+  workflow_dispatch: {}   # allows manual "Run workflow" trigger for demos
+
+jobs:
+  run-weekly-agent:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install package
+        # Only install the "drive" extra when DATA_SOURCE=drive is actually
+        # configured, so the plain local/CI path never needs google-auth.
+        run: |
+          if [ "${{ vars.DATA_SOURCE }}" = "drive" ]; then
+            pip install ".[drive]"
+          else
+            pip install .
+          fi
+
+      - name: Run weekly agent
+        env:
+          ENVIRONMENT: production
+          LOG_FORMAT: json
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          WEEKLY_OUTPUT_DIR: ${{ github.workspace }}/var/outputs/weekly
+          MONTHLY_OUTPUT_DIR: ${{ github.workspace }}/var/outputs/monthly
+          # Data source: "local" (reads sample_data/) or "drive" (reads a
+          # shared Google Drive folder — see docs/GOOGLE_DRIVE_SETUP.md).
+          DATA_SOURCE: ${{ vars.DATA_SOURCE }}
+          DRIVE_FOLDER_URL: ${{ vars.DRIVE_FOLDER_URL }}
+          LOCAL_DATA_DIR: ${{ github.workspace }}/sample_data
+          GOOGLE_SERVICE_ACCOUNT_JSON_BASE64: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 }}
+        run: project-health-weekly
+
+      - name: Upload weekly .docx reports as a build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-reports-${{ github.run_id }}
+          path: ${{ github.workspace }}/var/outputs/weekly/**/*.docx
+          if-no-files-found: warn
+          retention-days: 90
+
+      # Only the JSON is committed, not the .docx: aggregator.py (Phase 3)
+      # reads this JSON history to compute week-over-week trend, so it needs
+      # to persist across runs; the .docx is a rendering of it and doesn't
+      # belong in git as a binary diff. At larger scale this JSON history
+      # would move to a database instead of git — see docs/ARCHITECTURE.md.
+      - name: Commit weekly JSON history
+        run: |
+          git config user.name "project-health-agent"
+          git config user.email "actions@github.com"
+          if compgen -G "var/outputs/weekly/**/*.json" > /dev/null; then
+            git config user.name "project-health-agent"
+            git config user.email "actions@github.com"
+            git add -f var/outputs/weekly/**/*.json
+            git diff --cached --quiet || git commit -m "Weekly project health report $(date -u +%F)"
+            git push
+          else
+            echo "No JSON reports found. Skipping commit."
+          fi

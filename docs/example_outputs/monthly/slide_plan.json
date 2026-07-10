@@ -1,0 +1,121 @@
+{
+  "slides": [
+    {
+      "layout": "title",
+      "title": "Portfolio Health Review",
+      "subtitle": "Monthly synthesis across 2 active engagement(s)"
+    },
+    {
+      "layout": "bullets_with_chart",
+      "title": "Portfolio RAG Overview",
+      "chart_type": "rag_pie",
+      "bullets": [
+        "Current mix: 2 Red.",
+        "Status reflects schedule, milestone, and blocker health; financial/budget health is out of scope for this data set."
+      ]
+    },
+    {
+      "layout": "bullets",
+      "title": "Project-by-Project Snapshot",
+      "bullets": [
+        "Zycus - Titan S2P Implementation: Red (40.0/100) - Schedule Slippage: Worst task-level schedule variance is -81 day(s) on a zero-float (critical) task.",
+        "Zycus - UniSan S2P Implementation: Red (50.0/100) - Schedule Slippage: Worst task-level schedule variance is -2 day(s) on a zero-float (critical) task."
+      ]
+    },
+    {
+      "layout": "risk_items",
+      "title": "Emerging Risks & Cross-Project Themes",
+      "items": [
+        {
+          "category": "Critical-Path Concentration",
+          "severity": "Critical",
+          "statement": "15 critical-path (zero-float) tasks are currently slipping across 2 projects simultaneously \u2014 portfolio-wide delivery-capacity risk, not a single-project scheduling issue.",
+          "affected_projects": [
+            "Zycus - Titan S2P Implementation",
+            "Zycus - UniSan S2P Implementation"
+          ],
+          "metric": "total_critical_tasks_at_risk=15"
+        },
+        {
+          "category": "Recurring Delivery Theme",
+          "severity": "High",
+          "statement": "Root cause 'critical-path slippage' appears independently across 2 projects, suggesting a shared process gap rather than isolated project execution issues.",
+          "affected_projects": [
+            "Zycus - Titan S2P Implementation",
+            "Zycus - UniSan S2P Implementation"
+          ],
+          "metric": "projects_affected=2",
+          "theme": "critical-path slippage"
+        },
+        {
+          "category": "Governance / Reporting Integrity",
+          "severity": "High",
+          "statement": "PM-reported status disagrees with the independently computed status on 1 project(s) by more than one band \u2014 a signal that self-reported status may be optimistic and should not be forwarded to clients unreviewed.",
+          "affected_projects": [
+            "Zycus - Titan S2P Implementation"
+          ],
+          "metric": "disagreements=1"
+        },
+        {
+          "category": "Data Confidence",
+          "severity": "Medium",
+          "statement": "Core schedule fields are under 80% populated on 1 project(s) \u2014 computed RAG status on these carries reduced statistical confidence and is capped at Amber-or-worse by design.",
+          "affected_projects": [
+            "Zycus - UniSan S2P Implementation"
+          ],
+          "metric": "below_80pct_completeness=1"
+        }
+      ]
+    },
+    {
+      "layout": "recommendation_items",
+      "title": "Recommendations & Decisions Needed",
+      "items": [
+        {
+          "priority": "P1",
+          "action": "Escalate Zycus - Titan S2P Implementation to delivery leadership this week.",
+          "owner": "Delivery Lead",
+          "project": "Zycus - Titan S2P Implementation",
+          "rationale": "Schedule Slippage: Worst task-level schedule variance is -81 day(s) on a zero-float (critical) task."
+        },
+        {
+          "priority": "P1",
+          "action": "Escalate Zycus - UniSan S2P Implementation to delivery leadership this week.",
+          "owner": "Delivery Lead",
+          "project": "Zycus - UniSan S2P Implementation",
+          "rationale": "Schedule Slippage: Worst task-level schedule variance is -2 day(s) on a zero-float (critical) task."
+        },
+        {
+          "priority": "P1",
+          "action": "Reconcile PM-reported vs. computed status on Zycus - Titan S2P Implementation before any client-facing communication.",
+          "owner": "PMO / Governance",
+          "project": "Zycus - Titan S2P Implementation",
+          "rationale": "Source file status disagrees with independently computed RAG by more than one band."
+        },
+        {
+          "priority": "P2",
+          "action": "Institute a portfolio-wide critical-path review cadence (weekly, cross-project) rather than handling each slipping task in isolation.",
+          "owner": "PMO / Governance",
+          "project": "Portfolio-wide",
+          "rationale": "15 critical-path (zero-float) tasks are currently slipping across 2 projects simultaneously \u2014 portfolio-wide delivery-capacity risk, not a single-project scheduling issue."
+        },
+        {
+          "priority": "P3",
+          "action": "Request updated baseline/variance fields from delivery teams on projects below the data-completeness floor; low-confidence status should not be treated as final.",
+          "owner": "PMO / Governance",
+          "project": "Zycus - UniSan S2P Implementation",
+          "rationale": "Core schedule fields are under 80% populated on 1 project(s) \u2014 computed RAG status on these carries reduced statistical confidence and is capped at Amber-or-worse by design."
+        },
+        {
+          "priority": "P3",
+          "action": "Root-cause 'critical-path slippage' at the program level instead of remediating it project-by-project.",
+          "owner": "Program Manager",
+          "project": "Zycus - Titan S2P Implementation, Zycus - UniSan S2P Implementation",
+          "rationale": "Root cause 'critical-path slippage' appears independently across 2 projects, suggesting a shared process gap rather than isolated project execution issues."
+        }
+      ]
+    }
+  ],
+  "generated_by": "fallback_template",
+  "fallback_reason": "No LLM_PROVIDER/API key configured (see .env.example)."
+}

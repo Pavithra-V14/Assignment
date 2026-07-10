@@ -1,0 +1,70 @@
+{
+  "project_name": "Zycus - UniSan S2P Implementation",
+  "source_path": "/home/claude/work/project-health-agent_updated/project-health-agent/sample_data/Project_A.xlsx",
+  "generated_at_utc": "2026-07-10T05:10:55.759563+00:00",
+  "final_rag_status": "Red",
+  "composite_score": 50.0,
+  "raw_band_before_overrides": "Amber",
+  "overrides_triggered": [
+    "Zero-float critical task slipping -> forced RED",
+    "Data completeness 67% < 80% -> capped at AMBER (low confidence)"
+  ],
+  "source_file_rag_label": "Red",
+  "source_vs_computed_disagreement": null,
+  "llm_rag_opinion": "Red",
+  "model_vs_deterministic_disagreement": null,
+  "signal_breakdown": {
+    "schedule_slippage": {
+      "score": 2,
+      "detail": "Worst task-level schedule variance is -2 day(s) on a zero-float (critical) task.",
+      "worst_variance_days": -2.0,
+      "zero_float_slip": true
+    },
+    "progress_vs_plan": {
+      "score": 1,
+      "detail": "44% complete vs 59% of planned duration elapsed (15 pt gap).",
+      "pct_complete": 0.44,
+      "pct_time_elapsed": 0.588
+    },
+    "blockers": {
+      "score": 0,
+      "detail": "0 open blocker/friction reference(s) found in comments.",
+      "count": 0,
+      "old_blocker_present": false,
+      "examples": []
+    },
+    "stakeholder_sentiment": {
+      "score": 0,
+      "detail": "No stakeholder comments available; assuming neutral.",
+      "method": "fallback_semantic"
+    },
+    "critical_path_exposure": {
+      "score": 1,
+      "detail": "1 critical-path task(s) currently slipping.",
+      "at_risk_critical_tasks": 1
+    },
+    "data_completeness": {
+      "score": 2,
+      "detail": "67% of core fields populated.",
+      "completeness": 0.668
+    }
+  },
+  "top_drivers": [
+    "Schedule Slippage: Worst task-level schedule variance is -2 day(s) on a zero-float (critical) task.",
+    "Data Completeness: 67% of core fields populated.",
+    "Progress Vs Plan: 44% complete vs 59% of planned duration elapsed (15 pt gap)."
+  ],
+  "plain_english_reasoning": "This project is currently Red based on 3 key factor(s): Schedule Slippage: Worst task-level schedule variance is -2 day(s) on a zero-float (critical) task. Data Completeness: 67% of core fields populated. Recommend immediate escalation to the delivery lead and client-facing communication.",
+  "recommended_actions": [
+    "Escalate to delivery leadership immediately.",
+    "Convene a recovery-plan session with the client.",
+    "Re-sequence or add resources to the blocking critical-path task(s)."
+  ],
+  "stakeholder_sentiment": {
+    "score": 0,
+    "reasoning": "Derived from keyword-based fallback scan (no LLM provider configured)."
+  },
+  "data_completeness": 0.668,
+  "generated_by": "fallback_template",
+  "fallback_reason": "No LLM_PROVIDER/API key configured (see .env.example)."
+}
