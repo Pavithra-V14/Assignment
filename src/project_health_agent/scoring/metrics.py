@@ -9,6 +9,7 @@ numbers in plain English and adjudicate genuinely ambiguous cases, not to
 invent them.
 """
 from datetime import date, datetime
+from typing import Any, cast
 
 import pandas as pd
 
@@ -92,7 +93,7 @@ def _score_schedule_slippage(tasks: pd.DataFrame) -> dict:
         return {"score": 1, "detail": "No variance data available for active tasks.", "worst_variance_days": None, "zero_float_slip": False, "slipping_tasks": []}
 
     worst_variance = variances.min()  # most negative = most behind
-    worst_row = active.loc[variances.idxmin()]
+    worst_row = cast(pd.Series, active.loc[variances.idxmin()])
     zero_float_slip = False
     if "variance_days" in active.columns:
         critical_rows = active[_critical_mask(active)]
@@ -171,7 +172,7 @@ def _score_blockers(tasks: pd.DataFrame, comments_log: list) -> dict:
                 text = str(val)
                 if is_blocker_text(text):
                     open_blockers.append(text)
-                    row = tasks.loc[idx]
+                    row = cast(pd.Series, tasks.loc[cast(Any, idx)])
                     blocker_details.append({
                         "task_name": _clean(row.get("task_name")) or "Unnamed task",
                         "owner": _clean(row.get("owner")) or _clean(row.get("assigned_to")),
