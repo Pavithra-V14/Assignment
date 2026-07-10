@@ -211,17 +211,6 @@ async def upload_and_run_weekly(file: UploadFile = File(...)) -> dict[str, Any]:
         except ProjectHealthAgentError as exc:
             raise _error_response(exc) from exc
 
-
-# --------------------------------------------------------------------------
-# Monthly (Phase 3)
-# --------------------------------------------------------------------------
-# Each monthly run is scoped to one calendar month and lives under its own
-# <MONTHLY_OUTPUT_DIR>/<YYYY-MM>/ subfolder (see cli/monthly.py), so running
-# a later month never clobbers an earlier one and `GET /monthly/*` can be
-# asked for any month that's already been generated, not just "whatever
-# was generated most recently."
-
-
 def _generated_months() -> list[str]:
     """Months that already have a rendered portfolio package on disk,
     newest first."""
@@ -327,9 +316,6 @@ def run_monthly_synthesis(request: RunMonthlyRequest | None = Body(default=None)
     return RunMonthlyResponse(**result)
 
 
-# --------------------------------------------------------------------------
-# Projects
-# --------------------------------------------------------------------------
 @app.get(
     "/projects",
     tags=["projects"],

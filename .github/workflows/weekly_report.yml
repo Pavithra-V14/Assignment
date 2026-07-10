@@ -4,7 +4,10 @@ on:
   schedule:
     # Every Monday at 06:00 UTC. Adjust to match your reporting cadence.
     - cron: "0 6 * * 1"
-  workflow_dispatch: {}   # allows manual "Run workflow" trigger for demos
+  workflow_dispatch: {}   
+
+permissions:
+  contents: write
 
 jobs:
   run-weekly-agent:

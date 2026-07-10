@@ -40,16 +40,12 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    # --- Runtime environment -------------------------------------------------
+
     ENVIRONMENT: Literal["development", "staging", "production", "test"] = "development"
     LOG_LEVEL: str = "INFO"
     LOG_FORMAT: Literal["text", "json"] = "text"
     TODAYS_DATE_OVERRIDE: str = ""  # YYYY-MM-DD, for reproducible demo/test runs
 
-    # --- LLM provider selection -----------------------------------------------
-    # One of: "groq", "gemini", "none". "none" (or missing keys) triggers the
-    # deterministic fallback reasoner, so the pipeline is always runnable
-    # end-to-end without an API key.
     LLM_PROVIDER: Literal["groq", "gemini", "none"] = "none"
     GROQ_API_KEY: str = ""
     GROQ_MODEL: str = "llama-3.3-70b-versatile"
@@ -90,7 +86,6 @@ class Settings(BaseSettings):
     DRIVE_MAX_RETRIES: int = 4
     DRIVE_TIMEOUT_SECONDS: int = 30
 
-    # --- Output paths ----------------------------------------------------------
     WEEKLY_OUTPUT_DIR: str = str(BASE_DIR / "var" / "outputs" / "weekly")
     MONTHLY_OUTPUT_DIR: str = str(BASE_DIR / "var" / "outputs" / "monthly")
 
@@ -107,7 +102,6 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
-# --- RAG scoring weights (Phase 1 methodology) ------------------------------
 SIGNAL_WEIGHTS = {
     "schedule_slippage": 25,
     "progress_vs_plan": 20,
@@ -129,7 +123,6 @@ OVERRIDE_RULES = {
     "disagreement_band_gap_for_review": 1,  # bands apart vs source RAG column
 }
 
-# --- Semantic signal-detection thresholds (see scoring/semantic_signals.py) -
 SEMANTIC_THRESHOLDS = {
     "blocker_similarity_min": 0.10,     # TF-IDF cosine similarity vs BLOCKER_EXEMPLARS
     "sentiment_similarity_min": 0.10,   # TF-IDF cosine similarity vs NEGATIVE_SENTIMENT_EXEMPLARS

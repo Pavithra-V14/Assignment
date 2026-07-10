@@ -136,8 +136,6 @@ def _fallback_reasoning(state: WeeklyState) -> dict:
         "Red": ["Escalate to delivery leadership immediately.", "Convene a recovery-plan session with the client.", "Re-sequence or add resources to the blocking critical-path task(s)."],
     }[band]
 
-    # Name the actual critical-path task(s) in the Red recovery action, when
-    # the evidence has one, instead of the generic "critical-path task(s)".
     cp_details = signals.get("critical_path_exposure", {}).get("at_risk_critical_task_details") or []
     if band == "Red" and cp_details:
         names = ", ".join(f"\"{d['task_name']}\"" for d in cp_details[:2])
@@ -195,12 +193,6 @@ def node_finalize(state: WeeklyState) -> WeeklyState:
             f"{overrides['final_band']} — flagged for review, deterministic score remains authoritative."
             if model_disagrees else None
         ),
-        # Keep the FULL per-signal evidence dict (not just score/detail).
-        # aggregator.py's portfolio-level risk detection (critical-path
-        # concentration, aged-blocker exposure, etc.) reads fields like
-        # at_risk_critical_tasks / old_blocker_present straight out of this
-        # structure — trimming it here previously caused those fields to
-        # silently read as None/False downstream with no error raised.
         "signal_breakdown": {
             name: info for name, info in state["signals"].items()
         },

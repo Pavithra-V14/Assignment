@@ -137,13 +137,9 @@ def load_project_plan(path: str) -> dict:
     df = pd.DataFrame(data_rows, columns=header)
     df = df.rename(columns=_build_rename_map(list(header)))
 
-    # Keep only canonical columns we recognize (extras like duplicate
-    # Baseline Start2/Variance2/derived '#UNPARSEABLE' helper columns from
-    # older templates are dropped rather than silently misread).
     keep_cols = [c for c in COLUMN_ALIASES.keys() if c in df.columns]
     df = df[keep_cols].copy()
 
-    # Clean #UNPARSEABLE / blanks -> None
     for col in df.columns:
         df[col] = df[col].apply(_clean_value)
 
@@ -158,8 +154,6 @@ def load_project_plan(path: str) -> dict:
     if "not_applicable" in df.columns:
         df["not_applicable"] = df["not_applicable"].apply(lambda v: bool(v) if v is not None else False)
 
-    # Project name = the root task row (Ancestors == 0), falling back to the
-    # first row's task_name if the Ancestors column isn't present.
     project_name = None
     if "ancestors" in df.columns:
         root_rows = df[df["ancestors"] == 0]
