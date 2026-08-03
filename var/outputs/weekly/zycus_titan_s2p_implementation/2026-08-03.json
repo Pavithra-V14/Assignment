@@ -1,0 +1,172 @@
+{
+  "project_name": "Zycus - Titan S2P Implementation",
+  "source_path": "/home/runner/work/Assignment/Assignment/sample_data/Project_B.xlsx",
+  "generated_at_utc": "2026-08-03T09:22:39.426874+00:00",
+  "final_rag_status": "Red",
+  "composite_score": 40.0,
+  "raw_band_before_overrides": "Red",
+  "overrides_triggered": [
+    "Blocker open >= 21 days -> forced RED",
+    "Zero-float critical task slipping -> forced RED"
+  ],
+  "source_file_rag_label": "Green",
+  "source_vs_computed_disagreement": {
+    "source_value": "Green",
+    "computed_value": "Red",
+    "note": "Computed status disagrees with source file's existing RAG/Schedule Health by more than one band - flagged for PM review, not auto-resolved."
+  },
+  "llm_rag_opinion": "Red",
+  "model_vs_deterministic_disagreement": null,
+  "signal_breakdown": {
+    "schedule_slippage": {
+      "score": 2,
+      "detail": "Worst task-level schedule variance is -81 day(s) on \"Phase 2 - P2P\" \u2014 a zero-float (critical) task.",
+      "worst_variance_days": -81.0,
+      "worst_variance_task": {
+        "task_name": "Phase 2 - P2P",
+        "owner": null,
+        "phase_milestone": null,
+        "status": "In Progress",
+        "variance_days": -81.0
+      },
+      "zero_float_slip": true,
+      "slipping_tasks": [
+        {
+          "task_name": "Phase 2 - P2P",
+          "owner": null,
+          "phase_milestone": null,
+          "status": "In Progress",
+          "variance_days": -81.0
+        },
+        {
+          "task_name": "Load delta master data via integration",
+          "owner": "Titan Integration Team",
+          "phase_milestone": null,
+          "status": "Not Started",
+          "variance_days": -63.0
+        },
+        {
+          "task_name": "Titan Quality Check",
+          "owner": "Titan Project Team",
+          "phase_milestone": null,
+          "status": "Not Started",
+          "variance_days": -63.0
+        }
+      ]
+    },
+    "progress_vs_plan": {
+      "score": 0,
+      "detail": "71% complete vs 57% of planned duration elapsed (-14 pt gap).",
+      "pct_complete": 0.71,
+      "pct_time_elapsed": 0.569
+    },
+    "blockers": {
+      "score": 2,
+      "detail": "5 open blocker/friction reference(s) found in comments with at least one open 14+ days.",
+      "count": 5,
+      "old_blocker_present": true,
+      "examples": [
+        "Yet to recieve Sign off",
+        "Yet to recieve Sign off",
+        "Due to parallel phase 1 activities onsite workshop dates are impacted"
+      ],
+      "blocker_details": [
+        {
+          "task_name": "Go Value discussion & Project Plan",
+          "owner": "abhilasha.s@zycus.com",
+          "text": "Yet to recieve Sign off"
+        },
+        {
+          "task_name": "Draft IAD discussion & Sign off",
+          "owner": "abhilasha.s@zycus.com",
+          "text": "Yet to recieve Sign off"
+        },
+        {
+          "task_name": null,
+          "owner": "Sarika Arthmwar",
+          "text": "Due to parallel phase 1 activities onsite workshop dates are impacted"
+        },
+        {
+          "task_name": null,
+          "owner": "Sarika Arthmwar",
+          "text": "JDE mapping is pending only"
+        },
+        {
+          "task_name": null,
+          "owner": "Vinayaka Soratoor",
+          "text": "@aftab.hashambhai@zycus.com Need meeting on calendar for this"
+        }
+      ]
+    },
+    "stakeholder_sentiment": {
+      "score": 0,
+      "detail": "0/16 comments contain friction/escalation language.",
+      "method": "fallback_semantic"
+    },
+    "critical_path_exposure": {
+      "score": 2,
+      "detail": "14 critical-path task(s) currently slipping: \"Phase 2 - P2P\", \"Load delta master data via integration\", \"Titan Quality Check\", \"P2P Cutover\", \"Release P2P to all users requiring access for Pilot launch\".",
+      "at_risk_critical_tasks": 14,
+      "at_risk_critical_task_details": [
+        {
+          "task_name": "Phase 2 - P2P",
+          "owner": null,
+          "phase_milestone": null,
+          "status": "In Progress",
+          "variance_days": -81.0
+        },
+        {
+          "task_name": "Load delta master data via integration",
+          "owner": "Titan Integration Team",
+          "phase_milestone": null,
+          "status": "Not Started",
+          "variance_days": -63.0
+        },
+        {
+          "task_name": "Titan Quality Check",
+          "owner": "Titan Project Team",
+          "phase_milestone": null,
+          "status": "Not Started",
+          "variance_days": -63.0
+        },
+        {
+          "task_name": "P2P Cutover",
+          "owner": null,
+          "phase_milestone": null,
+          "status": "Not Started",
+          "variance_days": -62.0
+        },
+        {
+          "task_name": "Release P2P to all users requiring access for Pilot launch",
+          "owner": "Titan Project Manager, Titan Project Team, Zycus Product Specialist",
+          "phase_milestone": null,
+          "status": "Not Started",
+          "variance_days": -61.0
+        }
+      ]
+    },
+    "data_completeness": {
+      "score": 1,
+      "detail": "81% of core fields populated.",
+      "completeness": 0.811
+    }
+  },
+  "top_drivers": [
+    "Phase 2 - P2P task is slipping by 81 days",
+    "5 open blockers, including 'Yet to recieve Sign off' and 'Due to parallel phase 1 activities onsite workshop dates are impacted'",
+    "14 critical-path tasks are currently slipping, including 'Load delta master data via integration' and 'Titan Quality Check'"
+  ],
+  "plain_english_reasoning": "The project is currently at risk due to significant delays in critical tasks, such as 'Phase 2 - P2P', and the presence of multiple open blockers. These issues are impacting the project's progress and putting it behind schedule. Additionally, the slipping of 14 critical-path tasks is further exacerbating the problem.",
+  "recommended_actions": [
+    "Re-sequence the 'Phase 2 - P2P' task to get it back on track",
+    "Address the open blockers, starting with 'Yet to recieve Sign off' and 'Due to parallel phase 1 activities onsite workshop dates are impacted', to prevent further delays",
+    "Provide additional resources or support to the 'Load delta master data via integration' and 'Titan Quality Check' tasks to help them get back on schedule"
+  ],
+  "stakeholder_sentiment": {
+    "score": 1,
+    "reasoning": "The comments provided show a sense of concern and frustration, with phrases like 'Yet to recieve Sign off', 'Due to parallel phase 1 activities onsite workshop dates are impacted', and '@aftab.hashambhai@zycus.com Need meeting on calendar for this', indicating that stakeholders are experiencing difficulties and delays."
+  },
+  "data_completeness": 0.811,
+  "generated_by": "groq:llama-3.3-70b-versatile",
+  "fallback_reason": null
+}
