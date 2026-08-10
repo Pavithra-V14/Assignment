@@ -1,0 +1,96 @@
+{
+  "project_name": "Zycus - UniSan S2P Implementation",
+  "source_path": "/home/runner/work/Assignment/Assignment/sample_data/Project_A.xlsx",
+  "generated_at_utc": "2026-08-10T07:11:37.206352+00:00",
+  "final_rag_status": "Red",
+  "composite_score": 50.0,
+  "raw_band_before_overrides": "Amber",
+  "overrides_triggered": [
+    "Zero-float critical task slipping -> forced RED",
+    "Data completeness 67% < 80% -> capped at AMBER (low confidence)"
+  ],
+  "source_file_rag_label": "Red",
+  "source_vs_computed_disagreement": null,
+  "llm_rag_opinion": "Red",
+  "model_vs_deterministic_disagreement": null,
+  "signal_breakdown": {
+    "schedule_slippage": {
+      "score": 2,
+      "detail": "Worst task-level schedule variance is -2 day(s) on \"Zycus - UniSan S2P Implementation\" \u2014 a zero-float (critical) task.",
+      "worst_variance_days": -2.0,
+      "worst_variance_task": {
+        "task_name": "Zycus - UniSan S2P Implementation",
+        "owner": null,
+        "phase_milestone": null,
+        "status": "In Progress",
+        "variance_days": -2.0
+      },
+      "zero_float_slip": true,
+      "slipping_tasks": [
+        {
+          "task_name": "Zycus - UniSan S2P Implementation",
+          "owner": null,
+          "phase_milestone": null,
+          "status": "In Progress",
+          "variance_days": -2.0
+        }
+      ]
+    },
+    "progress_vs_plan": {
+      "score": 1,
+      "detail": "44% complete vs 59% of planned duration elapsed (15 pt gap).",
+      "pct_complete": 0.44,
+      "pct_time_elapsed": 0.588
+    },
+    "blockers": {
+      "score": 0,
+      "detail": "0 open blocker/friction reference(s) found in comments.",
+      "count": 0,
+      "old_blocker_present": false,
+      "examples": [],
+      "blocker_details": []
+    },
+    "stakeholder_sentiment": {
+      "score": 0,
+      "detail": "No stakeholder comments available; assuming neutral.",
+      "method": "fallback_semantic"
+    },
+    "critical_path_exposure": {
+      "score": 1,
+      "detail": "1 critical-path task(s) currently slipping: \"Zycus - UniSan S2P Implementation\".",
+      "at_risk_critical_tasks": 1,
+      "at_risk_critical_task_details": [
+        {
+          "task_name": "Zycus - UniSan S2P Implementation",
+          "owner": null,
+          "phase_milestone": null,
+          "status": "In Progress",
+          "variance_days": -2.0
+        }
+      ]
+    },
+    "data_completeness": {
+      "score": 2,
+      "detail": "67% of core fields populated.",
+      "completeness": 0.668
+    }
+  },
+  "top_drivers": [
+    "Zero-float critical task 'Zycus - UniSan S2P Implementation' slipping by -2 days",
+    "Data completeness at 67%, below the 80% threshold",
+    "Progress vs plan showing a 15pt gap (44% complete vs 59% of planned duration elapsed)"
+  ],
+  "plain_english_reasoning": "The project is currently at risk due to a critical task, 'Zycus - UniSan S2P Implementation', slipping by 2 days, which has no float and is on the critical path. Additionally, data completeness is below the desired threshold, and progress is behind plan. These factors contribute to the project's red status.",
+  "recommended_actions": [
+    "Re-sequence 'Zycus - UniSan S2P Implementation' to recover the slipped days",
+    "Add resources or adjust dependencies to get the project back on track",
+    "Focus on completing core fields to improve data completeness above 80%"
+  ],
+  "stakeholder_sentiment": {
+    "score": 0,
+    "reasoning": "No stakeholder comments available, so assuming neutral sentiment."
+  },
+  "data_completeness": 0.668,
+  "generated_by": "groq:llama-3.3-70b-versatile",
+  "fallback_reason": null
+}
